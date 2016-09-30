@@ -65,9 +65,9 @@ void on_mouse(int event, int x, int y, int flags, void* param)
 		cv::imshow("src", im1);
 }
 
-int main()
+int main(int argc, char** argv)
 {
-	im0 = cv::imread("lena.png");
+	im0 = cv::imread(argv[1]);
 	if (!im0.data)
 	{
 		std::cout << "Cannot load source image!" << std::endl;
