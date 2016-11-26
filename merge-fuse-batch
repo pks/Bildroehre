@@ -5,7 +5,8 @@ DIR=ARGV[0]
 i = 0
 while line = STDIN.gets
   args = line.strip.split.join (" -f #{DIR}")
-  cmd = "#{BILDROEHRE}/merge -F -o mertens-fused-#{i}.jpg #{args}"
+  is = i.to_s.rjust(3, "0")
+  cmd = "#{BILDROEHRE}/merge -F -o mertens-fused-#{is}.jpg #{args}"
   STDERR.write "#{cmd}\n"
   `#{cmd}`
   i += 1

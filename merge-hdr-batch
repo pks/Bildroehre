@@ -1,0 +1,23 @@
+#!/usr/bin/env ruby
+
+BILDROEHRE=File.dirname(__FILE__)
+DIR=ARGV[0]
+TONEMAP=ARGV[1]
+GAMMA=ARGV[2].to_f
+i = 0
+while line = STDIN.gets
+  fs = line.strip.split
+  s = " -f #{DIR}"
+  args = fs.join (" -f #{DIR}")
+  fs.each { |f|
+    exposure = `exiv2 #{DIR}/#{f} 2>/dev/null | grep 'Exposure time' | cut -d ':' -f 2 | strips | cut -d " " -f 1`
+    args += " -w #{Rational(exposure).to_f}"
+  }
+  is = i.to_s.rjust(3, "0")
+  s += args
+  cmd = "#{BILDROEHRE}/merge -D -R -g 1.0 -O debevec-#{TONEMAP}-gamma#{GAMMA}-#{is}.jpg -p robertston-#{TONEMAP}-gamma#{GAMMA}-#{is}.jpg #{s}"
+  STDERR.write "#{cmd}\n"
+  `#{cmd}`
+  i += 1
+end
+
