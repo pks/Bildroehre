@@ -1,0 +1,13 @@
+#!/usr/bin/env ruby
+
+BILDROEHRE=File.dirname(__FILE__)
+DIR=ARGV[0]
+i = 0
+while line = STDIN.gets
+  args = line.strip.split.join (" -f #{DIR}")
+  cmd = "#{BILDROEHRE}/merge -F -o mertens-fused-#{i}.jpg #{args}"
+  STDERR.write "#{cmd}\n"
+  `#{cmd}`
+  i += 1
+end
+

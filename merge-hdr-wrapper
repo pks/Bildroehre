@@ -1,0 +1,4 @@
+#!/bin/zsh -x
+
+exiv2 2016-10-30-15-08-38-dp2m.jpg 2>/dev/null | grep 'Exposure time' | cut -d ':' -f 2 | strips | cut -d " " -f 1 | bc -l
+
