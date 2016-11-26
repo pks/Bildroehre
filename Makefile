@@ -1,9 +1,12 @@
 CFLAGS = -lpthread -lstdc++
 CFLAGS += `pkg-config --libs opencv`
 
-crop: crop.cpp
-	g++ $(CFLAGS) crop.cpp -o crop
+crop: crop.cc
+	g++ $(CFLAGS) crop.cc -o crop
 
-straighten-img: straighten-img.cpp
-	g++ $(CFLAGS) straighten-img.cpp -o straighten-img
+merge: merge.cc
+	g++ -std=c++11 $(CFLAGS) merge.cc -o merge
+
+straighten: straighten.cc
+	g++ $(CFLAGS) straighten.cc -o straighten
 
