@@ -9,10 +9,18 @@ while line = STDIN.gets
   fs = line.strip.split
   s = " -f #{DIR}"
   args = fs.join (" -f #{DIR}")
+  skip = false
   fs.each { |f|
-    exposure = `exiv2 #{DIR}/#{f} 2>/dev/null | grep 'Exposure time' | cut -d ':' -f 2 | strips | cut -d " " -f 1`
-    args += " -w #{Rational(exposure).to_f}"
+    exposure = `exiftool #{DIR}/#{f} 2>/dev/null | grep 'Shutter Speed Value' | cut -d ':' -f 2 | strips`
+    begin
+      args += " -w #{Rational(exposure).to_f}"
+    rescue
+      STDERR.write "Error, can't get exposure! Skipping #{line}."
+      skip = true
+      break
+    end
   }
+  next if skip
   is = i.to_s.rjust(3, "0")
   s += args
   cmd = "#{BILDROEHRE}/merge -D -R -g 1.0 -O debevec-#{TONEMAP}-gamma#{GAMMA}-#{is}.jpg -p robertston-#{TONEMAP}-gamma#{GAMMA}-#{is}.jpg #{s}"
