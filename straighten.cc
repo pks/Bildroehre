@@ -19,7 +19,7 @@ Usage:
 #include <cmath>
 #include <iostream>
 
-cv::Mat im0, im1;
+cv::Mat im0, im0s, im1;
 std::vector<cv::Point> pt;
 
 void straighten_image(std::vector<cv::Point> pt)
@@ -68,6 +68,7 @@ void on_mouse(int event, int x, int y, int flags, void* param)
 int main(int argc, char** argv)
 {
 	im0 = cv::imread(argv[1]);
+  resize(im0, im0s, im0.size(), 0.1, 0.1);
 	if (!im0.data)
 	{
 		std::cout << "Cannot load source image!" << std::endl;
@@ -75,8 +76,9 @@ int main(int argc, char** argv)
 	}
 
 	cv::namedWindow("src", CV_WINDOW_AUTOSIZE);
+  cv::resizeWindow("src", 1024, 768);
 	cv::setMouseCallback("src", on_mouse, 0);
-	cv::imshow("src", im0);
+	cv::imshow("src", im0s);
 	cv::waitKey();
 	return 0;
 }
