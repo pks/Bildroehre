@@ -1,12 +1,19 @@
 CFLAGS = -lpthread -lstdc++
 CFLAGS += `pkg-config --libs opencv`
+CFLAGS += -I/Users/pks/.local/include
 
 crop: crop.cc
-	g++ $(CFLAGS) crop.cc -o crop
+	clang $(CFLAGS) crop.cc -o crop
+
+denoise: denoise.cc cxxopts/src/cxxopts.hpp
+	clang -std=c++11 $(CFLAGS) denoise.cc -o denoise
 
 merge: merge.cc cxxopts/src/cxxopts.hpp
 	g++ -std=c++11 $(CFLAGS) merge.cc -o merge
 
 straighten: straighten.cc
-	g++ $(CFLAGS) straighten.cc -o straighten
+	clang $(CFLAGS) straighten.cc -o straighten
+
+unsharp-mask: unsharp-mask.cc cxxopts/src/cxxopts.hpp
+	clang -std=c++11 $(CFLAGS) unsharp-mask.cc -o unsharp-mask
 
