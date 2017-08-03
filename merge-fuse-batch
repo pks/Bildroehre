@@ -2,12 +2,13 @@
 
 BILDROEHRE=File.dirname(__FILE__)
 DIR=ARGV[0]
+
 i = 0
 while line = STDIN.gets
   args = " -f #{DIR}"
   args += line.strip.split.join (" -f #{DIR}")
   is = i.to_s.rjust(3, "0")
-  cmd = "#{BILDROEHRE}/merge -F -o mertens-fused-#{is}.jpg #{args}"
+  cmd = "bash -c 'LD_LIBRARY_PATH=~/.local/lib:$LD_LIBRARY_PATH #{BILDROEHRE}/merge -F -o mertens-fused-#{is}.jpg #{args}'"
   STDERR.write "#{cmd}\n"
   `#{cmd}`
   i += 1
