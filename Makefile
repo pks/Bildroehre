@@ -2,6 +2,8 @@ CFLAGS = -lpthread -lstdc++
 CFLAGS += `pkg-config --libs opencv`
 CFLAGS += -I/Users/pks/.local/include
 
+all: crop denoise merge straighten unsharp-mask
+
 crop: crop.cc
 	clang $(CFLAGS) crop.cc -o crop
 
