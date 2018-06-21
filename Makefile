@@ -19,3 +19,6 @@ straighten: straighten.cc
 unsharp-mask: unsharp-mask.cc cxxopts/src/cxxopts.hpp
 	clang -std=c++11 $(CFLAGS) unsharp-mask.cc -o unsharp-mask
 
+clean:
+	rm -f crop denoise merge straighten unsharp-mask
+
